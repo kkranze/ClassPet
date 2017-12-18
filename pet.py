@@ -37,8 +37,7 @@ w = white
 r = red
 o = nothing
 
-pet =[
- [
+pet = [
     o, o, o, g, g, g, g, o,
     o, G, G, G, b, G, b, o,
     o, o, g, w, w, g, g, g,
@@ -46,11 +45,11 @@ pet =[
     B, B, g, B, B, B, o, o,
     B, g, g, y, G, y, g, o,
     o, B, g, G, G, G, o, o,
-    o, o, g, o, o, g, o, o,
-    ]]
+    o, o, g, o, o, g, o, o
+    ]
 
 eat = [
-    [   
+    [
     o, o, o, t, t, o, o, o,
     o, o, t, y, r, t, o, o,
     o, t, r, y, y, y, t, o,
@@ -104,8 +103,10 @@ eat = [
     B, g, g, y, G, y, y, y,
     o, B, g, G, G, G, G, o,
     o, o, g, o, o, g, o, o,
-    ],[
-    o, o, o, o, o, o, o, o,
+    ] ]
+
+fun = [
+    [o, o, o, o, o, o, o, o,
     o, o, o, o, o, o, o, o,
     o, o, o, o, o, o, o, o,
     o, o, o, o, o, o, o, o,
@@ -195,12 +196,21 @@ eat = [
     o, o, o, o, o, o, o, o,
     o, o, o, o, o, o, o, o,
     ]
-    ]   
-
+]
 while True: 
+
+	from sense_hat import SenseHat
+
+	sense = SenseHat()
+	orientation = sense.get_orientation_degrees()
+	print("p: {pitch}, r: {roll}, y: {yaw}".format(**orientation))
+	
 	s.set_pixels(pet)
 	x, y, z = s.get_accelerometer_raw().values()
 	if(x > 1 or y > 1 or z > 1):
+		animate(s,fun,0.5)
+	if(orientation ["roll"] > 160 and orientation ["yaw"] > 200):
 		animate(s,eat,0.5)
+
 	time.sleep(1)
 
